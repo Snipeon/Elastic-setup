@@ -17,7 +17,7 @@ So, let's set up a basic simulated environment where you would use a SIEM.
 
 A SIEM is not gonna be of any use if it's just sitting out in the open, where anyone can go in, read, write, and do anything with it. So, it needs to be isolated. I achieved this by putting it in its own isolated network, behind a firewall. The clients would need to access the outside internet at large, so I would put them also behind the firewall, in their own network called a De-militarized Zone(DMZ). Yeah, don't ask me why that name, I didn't choose it. The analogy still works, though.  
 
-Anyways, here's what the setup would look like:  
+Anyways, here's what I want the setup to look like and do:  
 
-<img width="596" height="643" alt="image" src="https://github.com/user-attachments/assets/e7b48bd0-b933-44da-8112-5f9b32dacb56" />
+<img width="721" height="771" alt="image" src="https://github.com/user-attachments/assets/86796633-a069-4308-a88f-3877af4f3cdb" />
 
