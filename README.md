@@ -21,3 +21,11 @@ Anyways, here's what I want the setup to look like and do:
 
 <img width="721" height="771" alt="image" src="https://github.com/user-attachments/assets/86796633-a069-4308-a88f-3877af4f3cdb" />
 
+So, why this setup? One step at a time.  
+
+These are the three zones we've established:  
+1. Untrusted Zone: WAN(Internet) is basically the wild west. Anything and everything can happen here. As such, we don't trust this zone easily.  
+2. Neutral Zone: DMZ is able to access WAN regularly. It's still internal, but we would be much more cautious of it.  
+3. Internal Zone: LAN is our internal, secure zone.  
+
+But the Elastic cluster still can talk with some parts of the internet! Yes, that's why we only allow the cluster to talk with approved places, specifically, to get updates for software patches. All connections still have to go through the firewall as the firewall is our primary line of defense. 
