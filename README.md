@@ -35,4 +35,4 @@ I chose to do it this way for a few reasons:
 3. If setup properly, this setup is actually still really resilient. Let's just pray I have the skills to set it up properly.
 4. I actually wanna take a break from setting up excessive VMs for now(More details to follow in future updates as I progress further into writing this report ~~for prosperity~~).
 
-Anyways, for now, I'll throw the setup files I used for kali before I decided to abandon that approach, and the firewall that I've partly setup onto here. I'm still setting up the elastic machine, so that's gonna have to wait for a future update. Along with me documenting my setup process. Lol.
+Anyways, for now, I'll throw the setup files I used for kali before I decided to abandon that approach, and the firewall setup files onto here. Firewall's still not completely done. I'm still setting up the elastic machine, so that's gonna have to wait for a future update. Along with me documenting my setup process. Lol.
