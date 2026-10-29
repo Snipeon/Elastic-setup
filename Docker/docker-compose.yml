@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.5.5
+    container_name: es-local
+    environment:
+      - node.name=es-local
+      - cluster.name=elk-local-cluster
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - 9200:9200
+    networks:
+      - elk-net
+    # Modern format resource limits compatible across legacy environments:
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:9.5.5
+    container_name: logstash-local
+    
+    environment:
+      - queue.type=persisted                  # Enables the disk queue buffer
+      - queue.max_bytes=4gb                   # Caps the storage footprint
+      - path.queue=/usr/share/logstash/queue  # Directs the queue to our dedicated volume
+      
+    volumes:
+      # THE LOCKED APPLICATION ZONE:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      
+      # THE WRITEABLE SPONGE ZONE:
+      # This dedicated volume is completely isolated from the OS binaries
+      - logstash-queue-disk:/usr/share/logstash/queue:rw
+      
+    # Standard container security parameters stay intact:
+    user: "1000:1000"
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2g
+    networks:
+      - elk-net
+
+volumes:
+  # The host manages this as a distinct, dedicated physical storage block
+  logstash-queue-disk:
+    driver: local
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.5.5
+    container_name: kibana-local
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk-net
+
+networks:
+  elk-net:
+    driver: bridge
